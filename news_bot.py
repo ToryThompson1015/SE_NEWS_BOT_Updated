@@ -1,9 +1,10 @@
 import feedparser
 import requests
 import random
+import os
 
 # Hardcoded Slack webhook URL
-SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'  # <-- Replace with your actual webhook
+SLACK_WEBHOOK_URL = os.environ.get('SLACK_WEBHOOK_URL')  # <-- Replace with your actual webhook
 
 # Pool of 7 tech news RSS feeds
 RSS_FEEDS = [
