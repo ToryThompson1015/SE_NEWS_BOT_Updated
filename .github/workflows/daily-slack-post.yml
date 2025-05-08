@@ -1,1 +1,26 @@
+name: Daily Slack Article Poster
 
+on:
+  schedule:
+    - cron: '0 13 * * *'  # Runs every day at 13:00 UTC (adjust as needed)
+  workflow_dispatch:      # Allows manual runs
+
+jobs:
+  post-articles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install feedparser requests
+
+      - name: Run script
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python post_articles_to_slack.py
